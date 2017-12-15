@@ -12,7 +12,7 @@
 <meta name="keywords" content="">
 <meta name="description" content="">
 <link rel="stylesheet" type="text/css" href="./css/style2.css">
-<link rel="stylesheet" href="./css/island.css">
+		<link rel="stylesheet" href="./css/island.css">
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/jquery.smoothscroll.js"></script>
@@ -122,14 +122,7 @@ $(function($){
             z-index: 0;
         }
         
-
-        #box{
-        position: relative;
-        background: aqua;
-        top:20px;
-        width: 300px;
-        border: solid blue;
-      }
+A
     </style>
 </head>
 <body>
@@ -172,12 +165,6 @@ $(function($){
                     <?php
                         }
                     ?>
-                    
-                    <div id="box1">
-                        <a href="" style="display:block position:relative; z-index:999; "onclick="box1()">リンク</a><br>
-                      <button type="button">ボタン</button>
-                    </div>
-                    
                 </div><!-- /#contents -->
             </div>
     <footer>
@@ -319,16 +306,9 @@ $(function($){
         });
     
     
-    
-$(function(box1){
-
-  // ボックスを表示する
-  $('#textbox').on('focus',function(e){
-    $('#box1').hide();
-  });
-
-});
-
+    document.getElementById("cl").onclick = function() {
+    document.getElementById("text").innerHTML = "クリックされた！";
+    };
     
         
 
