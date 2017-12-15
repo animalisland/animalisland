@@ -1,1 +1,1 @@
-# animalisland
+# animal-island
