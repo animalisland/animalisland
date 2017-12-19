@@ -71,11 +71,11 @@ $(function($){
         float: left;
         margin-top: 4%;
         width: 13%;
-        
+
         font-size: 25px;
         padding-left: 10px;
     }
-        
+
 
 
 
@@ -83,7 +83,7 @@ $(function($){
         background-color: #111;
     }
 
-    
+
 
         .r{
             float: right;
@@ -99,16 +99,17 @@ $(function($){
             z-index: 1;
             margin-left: -80px;
         }
-        
+
         .gnav{
             position: fixed;
             z-index: 1;
             border-radius: 20% 20% 0 0;
             height: 20.5%;
             width: 100%;
-            margin-top:38%;
-            margin-left:-21%;
-          
+						bottom: 0px;
+            /* margin-top:38%;
+            margin-left:-21%; */
+
         }
         h1{
             top:0%;
@@ -121,7 +122,7 @@ $(function($){
             position: absolute;
             z-index: 0;
         }
-        
+
 
         #box{
         position: relative;
@@ -143,7 +144,7 @@ $(function($){
                     <img src="https://wedding-design.non-rhetoric.jp/wp-content/themes/nonrhetoric/img/lp/naoshima/photo-about.png" id="main">
                     <h1 >しまぜんたいず</h1>
 
-                  
+
 
                     <?php
                         foreach ($arrayList as $key) {
@@ -172,12 +173,12 @@ $(function($){
                     <?php
                         }
                     ?>
-                    
+
                     <div id="box1">
                         <a href="" style="display:block position:relative; z-index:999; "onclick="box1()">リンク</a><br>
                       <button type="button">ボタン</button>
                     </div>
-                    
+
                 </div><!-- /#contents -->
             </div>
     <footer>
@@ -301,7 +302,7 @@ $(function($){
             $('body.drawer drawer--left #container').css({display:'block',opacity:'0'});
             $('body.drawer drawer--left .container').animate({opacity:'1'},500);
 
-            
+
         });
 
         $(window).bind('load',function(){
@@ -317,9 +318,9 @@ $(function($){
         $('.tgt').children('span:eq('+i+')').delay(i).animate({'opacity':1},50);
         };
         });
-    
-    
-    
+
+
+
 $(function(box1){
 
   // ボックスを表示する
@@ -329,8 +330,8 @@ $(function(box1){
 
 });
 
-    
-        
+
+
 
     </script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/css/drawer.min.css">

@@ -19,7 +19,7 @@ body {
 
 .inner {
 	position:relative;
-	width:980px;
+	/* width:980px; */
 	margin:0 auto;
 }
 
@@ -179,23 +179,23 @@ dd {
 table {
 	width:100%;
 	margin-bottom:1em;
-	
-	
+
+
 }
 th {
-	
+
 	text-align:center;
 	vertical-align:inherit;
     display: table-cell;
-	
-	
+
+
 }
 td {
-	
+
 	text-align:left;
     vertical-align:inherit;
     display: table-cell;
-	
+
 }
 
 /*================================================
@@ -302,7 +302,7 @@ header {
 	nav ul li ul li a {
 		padding:13px 15px;
 		text-align:left;
-		
+
 		font-weight:normal;
 	}
 
@@ -360,7 +360,7 @@ header {
 	}
 
 	nav ul li ul li ul li a {
-		
+
 	}
 
 	nav ul li ul li ul li a:hover {
@@ -377,6 +377,7 @@ header {
 
 	.fixed {
 		position:fixed;
+		width: 100%;
 		top:0;
 		left:0;
 	}
