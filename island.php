@@ -12,7 +12,7 @@
 <meta name="keywords" content="">
 <meta name="description" content="">
 <link rel="stylesheet" type="text/css" href="./css/style2.css">
-<link rel="stylesheet" href="./css/island.css">
+		<link rel="stylesheet" href="./css/island.css">
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/jquery.smoothscroll.js"></script>
@@ -71,11 +71,11 @@ $(function($){
         float: left;
         margin-top: 4%;
         width: 13%;
-
+        
         font-size: 25px;
         padding-left: 10px;
     }
-
+        
 
 
 
@@ -83,7 +83,7 @@ $(function($){
         background-color: #111;
     }
 
-
+    
 
         .r{
             float: right;
@@ -99,17 +99,16 @@ $(function($){
             z-index: 1;
             margin-left: -80px;
         }
-
+        
         .gnav{
             position: fixed;
             z-index: 1;
             border-radius: 20% 20% 0 0;
             height: 20.5%;
             width: 100%;
-						bottom: 0px;
-            /* margin-top:38%;
-            margin-left:-21%; */
-
+            margin-top:38%;
+            margin-left:-13.5%;
+          
         }
         h1{
             top:0%;
@@ -122,17 +121,22 @@ $(function($){
             position: absolute;
             z-index: 0;
         }
+        
+       
+        #box1{
+            height: 100px;
+            width: 700px;
+            position: absolute;
+            z-index: 200;
+            background: white;
+            top: 0;
+            margin-left: 50%
+        }
+        
 
-
-        #box{
-        position: relative;
-        background: aqua;
-        top:20px;
-        width: 300px;
-        border: solid blue;
-      }
     </style>
 </head>
+    
 <body>
 
 	<!-- ナビゲーション呼び出し -->
@@ -141,10 +145,8 @@ $(function($){
 		<main role="main">
             <div class="map">
                 <div id="contents">
-                    <img src="https://wedding-design.non-rhetoric.jp/wp-content/themes/nonrhetoric/img/lp/naoshima/photo-about.png" id="main">
+                    <img src="./images/sima2.png" id="main">
                     <h1 >しまぜんたいず</h1>
-
-
 
                     <?php
                         foreach ($arrayList as $key) {
@@ -173,12 +175,23 @@ $(function($){
                     <?php
                         }
                     ?>
-
+                  <!--追加 -->
                     <div id="box1">
-                        <a href="" style="display:block position:relative; z-index:999; "onclick="box1()">リンク</a><br>
-                      <button type="button">ボタン</button>
+                        <p>現在の位置情報</p>
+                    <?php
+                        foreach ($arrayList as $key) {
+                            echo "<div style='float:left;padding-left:1%;padding-right:5%'>";
+                            echo "<img src=".$key['url']." style=width:50px;height:6vh;padding-right:5%;padding-left:10%;>";
+                            echo "<p id='aaa' style='margin-left:15%;'>";
+                            echo "</p>";
+                            echo "<p id='bbb' style='margin-top:-72%;margin-left:200%'>";
+                            echo "</p>";
+                            echo "</div>";
+                        };
+                    ?>
                     </div>
-
+                    
+                    
                 </div><!-- /#contents -->
             </div>
     <footer>
@@ -197,7 +210,7 @@ $(function($){
         for (var i = 0; i < array.length; i++) {
           size[array[i]['id']] = {
             "width": Math.floor(Math.random() * (window.parent.screen.width + 1 - 600))+300,
-            "height": Math.floor(Math.random() * (window.parent.screen.height + 1 - 600))+300,
+            "height": Math.floor(Math.random() * (window.parent.screen.height + 1 - 600))+100,
           };
           $('.' + array[i]['id']).css('top', size[array[i]['id']]["height"] + 'px');
           $('.' + array[i]['id']).css('left', size[array[i]['id']]["width"] +'px');
@@ -287,9 +300,16 @@ $(function($){
         }else {
           setTimeout(movement(type));
         }
+        if(type=="cat"){
+         document.getElementById("aaa").innerHTML= parseInt(size['cat']["width"],10)+"m";
+        }
+          
+         if(type=="dog"){
+              document.getElementById("bbb").innerHTML= parseInt(size['dog']["width"],10)+"m";
+         } 
         //setTimeout(rect(type), 1000); //アニメーションを繰り返す間隔
       }
-
+        
 
         $(document).ready(function() {
              $('.drawer').drawer();
@@ -302,7 +322,7 @@ $(function($){
             $('body.drawer drawer--left #container').css({display:'block',opacity:'0'});
             $('body.drawer drawer--left .container').animate({opacity:'1'},500);
 
-
+            
         });
 
         $(window).bind('load',function(){
@@ -318,20 +338,24 @@ $(function($){
         $('.tgt').children('span:eq('+i+')').delay(i).animate({'opacity':1},50);
         };
         });
+        
+        //追加
+        document.getElementById("box1").style.display ="none";
 
+        function asp(){
+            var y1 = document.getElementById("box1");
 
-
-$(function(box1){
-
-  // ボックスを表示する
-  $('#textbox').on('focus',function(e){
-    $('#box1').hide();
-  });
-
-});
-
-
-
+            if(y1.style.display=="block"){
+                // noneで非表示
+                y1.style.display ="none";
+            }else{
+                // blockで表示
+                y1.style.display ="block";
+            }
+        }
+    
+    
+        
 
     </script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/css/drawer.min.css">
