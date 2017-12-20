@@ -46,11 +46,13 @@ $(function($){
 	<script src="js/html5shiv.js"></script>
 	<script src="js/css3-mediaqueries.js"></script>
 <![endif]-->
+    
     <style>
         @font-face {
         font-family: 'MyWebFont';
         src: url('./font/FriendsFu.woff') format('woff');
     }
+        
   body
         {
             background-repeat: no-repeat;
@@ -58,19 +60,19 @@ $(function($){
             width: 100%;
             margin: 0px;
             padding: 0px;
-        
+
         }
         .a{
                 width:100%;
-                height:100vh;
-                margin-top: -10%;
-                position:relative;
+                height:140vh;
+                margin-top: 0%;
+                position:absolute;
                 background-color:rgba(0,0,0,0.5);
             }
-        
+
         .box1{
             padding: 1em 1em 1.5em 1em;
-            top:-3%;
+            top:-2%;
             bottom: 0;
             right: 0;
             left: 0;
@@ -87,62 +89,64 @@ $(function($){
             width: 60%;
             height: 70vh;
             border-radius: 10%;
-            
+
         }
-        
+
         .box1 p {
-            margin: 0; 
+            margin: 0;
             padding: 0;
-            
+
         }
-        
+
         .box1 table {
             top: 0;
             left 0;
             right: 0;
             bottom 0;
-           margin: auto; 
+           margin: auto;
             float: right;
-            
+
         }
         #contents {
+            position: relative;
             overflow:hidden;
             width:auto;
             height: auto;
-            margin: 10% 0 0 0;
+            margin: 0 0 0 0;
             background:#fff;
+            
         }
-        
+
         tbody{
             float: right;
             margin-top: -45%;
-            margin-right: 4%
-            
-            
+            margin-right: 10%
+
+
         }
-        
-        
+
+
         a{
             top:10%;
             bottom: 0;
             right: 0;
             left: 0;
-            
+
         }
         table{
             top:10%;
             bottom:0;
             right:0;
-            left:20%; 
+            left:20%;
             font-size: 15px;
             border-collapse: collapse;
         }
-        
+
         td{
              border-bottom: dotted 1px;
             width: 17vh;
              padding-top:10%;
-                
+
         }
         ul{
             list-style-type:none;
@@ -151,13 +155,13 @@ $(function($){
         li{
          text-align: center;
             width: 500px;
-       
+
         }
         li.1{
-            padding-left: 10px;  
+            padding-left: 10px;
         }
         li.2{
-           padding-left: 10px; 
+           padding-left: 10px;
         }
         tr{
             border-bottom: 1px #000 dotted;
@@ -174,7 +178,7 @@ $(function($){
             width: 17vh;
             padding-top:10%;
         }
-        
+
         .ss{
             float: right;
             margin-right: -7%;
@@ -187,10 +191,32 @@ $(function($){
             margin-top: 30%;
             color: white;
         }
-        
-        
-        
-        
+
+				.centered{
+				  position: relative;
+				  width: 400px;/*　幅（100%以下で指定 or px）　*/
+				  padding-top: 400px;/*　高さ（100%以下で指定 or px）　*/
+				  overflow: hidden;
+				  margin: 0 auto;
+					border-radius: 50%;
+                    margin-right:50%; 
+				}
+				.centered img{
+				/* 画像を上下左右に中央配置する（絶対指定） */
+				  position: absolute;
+				  top: 50%;
+				  left: 50%;
+				  -webkit-transform: translate(-50%, -50%);
+				  -ms-transform: translate(-50%, -50%);
+				  transform: translate(-50%, -50%);
+				  /* 画像の最大サイズは枠の1.5倍まで */
+				  min-width: 100%;
+				  max-width: 150%;
+				  max-height: 150%;
+				}
+
+
+
     </style>
 </head>
 <body>
@@ -210,29 +236,30 @@ $(function($){
 	<div class="inner">
 		<ul class="gnav">
               <li class="s"><a class="active" href="island.php">　</a></li>
-             
-              
-			
+
+
+
 		</ul>
 	</div><!-- /.inner -->
 </nav>
 
 
-    <div class="a"> 
-       
+    
+
     <div id="contents">
          <img src="./images/sima.png" id="main">
-        <img src="images/btn.png" style="position:absolute; margin-left:-15%; z-index:1; margin-top:26%; width:160px"><a href="./test.php"><p class="p1">もどる</p></a>
-        
+        <img src="images/btn.png" style="position:absolute; margin-left:-15%; z-index:1; margin-top:26%; width:140px"><a href="./island.php"><p class="p1">もどる</p></a>
+
            <?php $id = $_GET["id"];?>
+        <div class="a">
           <div class="box1">
-              
+
             <?php
             //DSN(Data Source Name)
             $dsn = "mysql:host=localhost;dbname=gp41;charset=utf8";
             $dbuser = "root";
             $dbpass = "";
-           
+
 
             try{
                 $pdo = new PDO($dsn, $dbuser, $dbpass);
@@ -243,19 +270,19 @@ $(function($){
                 $preStmt = $pdo->prepare($sql);
                 $preStmt->bindValue(1,$id);
                 $preStmt->execute();
-                foreach($preStmt as $row){   
+                foreach($preStmt as $row){
             ?>
-              
+
               <p>データ</p>
-             <img src="<?php echo "./images/".$id.".jpg"; ?>" width="60%" height="85%" style="float:left; margin-top:2%">
-              
-              
-               
+							<div class="centered">
+								<img src="<?php echo "./images/".$id.".jpg"; ?>">
+							</div>
+
               <table cellpadding="5">
                     <tr width="100">
                         <th>ID:</th>
                        <?php echo "<td>".$row['id']."</td>"; ?>
-                          
+
                     </tr>
                     <tr>
                         <th>名前:</th>
@@ -277,25 +304,25 @@ $(function($){
                         <th>健康状態</th>
                         <?php echo "<td>".$row['health']."</td>"; }?>
                     </tr>
-                  
+
                 </table>
                <ul>
              <?php
-                 echo "<li class='ss'><a href='st.php?id=".$id. "'style=list-style:none float:right>";
+                 echo "<li class='ss'><a href='st.php?id=".$id. "'style=list-style:none>";
                     echo "ストリーミング";
                     echo "</a>";
               ?>
                   <a href="list.php" style="margin-left:20px; padding:10px;">一覧へ</a>
-                 
-                     
+
+
              </ul>
-              
-            
+
+
 
           </div>
         </div>
         </div>
-    
+
           <?php
             }catch(Exception $e){
                 echo $e->getMessage();
@@ -305,6 +332,6 @@ $(function($){
             $pdo = null;
             ?>
 
-     
+
     </body>
 </html>
