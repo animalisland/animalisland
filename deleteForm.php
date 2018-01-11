@@ -1,3 +1,18 @@
+<?php
+if(!isset($_POST["id"])){
+    $id ="";
+}else{
+   $id = $_POST["id"]; 
+}
+?>
+
+<?php
+	// データーベース
+	require_once './databaseUtil.php';
+	$databasea = new DatabaseUtil();
+	$arrayList = $databasea->dels($id);
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -12,6 +27,7 @@
 <script type="text/javascript" src="js/jquery.scrollshow.js"></script>
 <script type="text/javascript" src="js/jquery.rollover.js"></script>
 <script type="text/javascript" src="js/jquery.slidewide.js"></script>
+<link rel="stylesheet" href="./css/bootstrap.min.css">
 <script>
 $(function($){
 	if ($('#spMenu').css('display') == 'block') {
@@ -119,8 +135,8 @@ $(function($){
 
         tbody{
             float: right;
-            margin-top: -45%;
-            margin-right: 4%
+            margin-top: -38%;
+            margin-right: 2%
 
 
         }
@@ -171,18 +187,17 @@ $(function($){
             text-align: center;
             width: 20vh;
 /*            padding-top:6%;*/
-            background: pink;
-            border-radius: 30% 0 0 30%;
+            border-radius: 50% 0 0 50%;
             height: 47px;
             font-size: 20px;
         }
          td{
             width: 20vh;
-             background: aqua;
-            border-radius: 0 30% 30% 0; 
+            border-radius: 0 50% 50% 0; 
              color: black;
              font-size: 20px;
              height: 47px;
+             padding-top: 3%;
         }
 
         .ss{
@@ -194,7 +209,7 @@ $(function($){
             z-index: 1;
             margin-left: 88%;
             font-size: 20px;
-            margin-top: 37%;
+            margin-top: 34%;
             color: white;
         }
 
@@ -224,7 +239,19 @@ $(function($){
         .ainfo{
             font-family: "MyWebFont" !important;
         }
-
+        
+        .form-control{
+            width: 115%;
+        }
+        .form-group2{
+           
+        }
+        
+         .form-control2{
+           
+        }
+        
+        
 
 
     </style>
@@ -233,7 +260,7 @@ $(function($){
 
 <header>
 	<div class="inner">
-		<h1><a href="island.php"><img src="./images/logo2.png" class="img1"></a></h1>
+		<h1><a href="index.html"><img src="./images/logo2.png" class="img1"></a></h1>
 		
 	</div><!-- /.inner -->
 </header>
@@ -256,94 +283,105 @@ $(function($){
 
     <div id="contents">
          <img src="./images/sima.png" id="main">
-        <img src="images/btn.png" style="position:absolute; margin-left:-15%; z-index:1; margin-top:33%; width:140px"><a href="./island.php"><p class="p1">もどる</p></a>
+        <img src="images/btn.png" style="position:absolute; margin-left:-15%; z-index:1; margin-top:30%; width:140px"><a href='javascript:history.back()'><p class="p1">もどる</p></a>
 
-           <?php $id = $_GET["id"];?>
         <div class="a">
           <div class="box1">
 
-            <?php
-            //DSN(Data Source Name)
-            $dsn = "mysql:host=localhost;dbname=gp41;charset=utf8";
-            $dbuser = "root";
-            $dbpass = "";
+                <p style="font-size:45px" class="ainfo">削除依頼</p>
+					<div class="centerd">
+                    </div>
+                <form action="" method="post">
+                    ID:<input type="text" name="id">
+                    <input type="submit" value="検索">
+                </form>
+              
+                                  <?php
+                            foreach ($arrayList as $key) {
+                                echo "<table cellspacing='150'>";
+                                echo "<tr width='180''>";
+                                    echo "<th>ID:</th>";
+                                    echo "<td>".$key['id']."</td>";
+                                echo "</tr>";
+                                 echo "<tr width='180''>";
+                                    echo "<th>名前:</th>";
+                                    echo "<td>".$key['name']."</td>";
+                                echo "</tr>";
+                                 echo "<tr width='180''>";
+                                    echo "<th>種類:</th>";
+                                    echo "<td>".$key['ani_kind']."</td>";
+                                echo "</tr>";
+                                 echo "<tr width='180''>";
+                                    echo "<th>性別:</th>";
+                                    echo "<td>".$key['sex']."</td>";
+                                echo "</tr>";
+                                 echo "<tr width='180''>";
+                                    echo "<th>年齢:</th>";
+                                    echo "<td>".$key['age']."</td>";
+                                echo "</tr>";
+                                 echo "<tr width='180''>";
+                                    echo "<th>健康状態:</th>";
+                                    echo "<td>".$key['health']."</td>";
+                                echo "</tr>";
+                                if($_POST["id"]=="dog"){
+                                     echo "<img src="."./".$key['url']." style=float:left;margin-left:3%;margin-top:2%;width:45%;>";
+                                }else{
+                                    echo "<img src="."./".$key['url']." style=float:left;margin-left:8%;margin-top:5%;width:50%;>";
+                                }
+                                
+                               
+                    
 
-
-            try{
-                $pdo = new PDO($dsn, $dbuser, $dbpass);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
-                //DefaultはERRMODE_SILENT
-                $sql = "select * from ani_data where id = ?";
-                $preStmt = $pdo->prepare($sql);
-                $preStmt->bindValue(1,$id);
-                $preStmt->execute();
-                foreach($preStmt as $row){
-            ?>
-
-              <p style="font-size:45px" class="ainfo">動物情報</p>
-							<div class="centered">
-								<img src="<?php echo "./images/".$id.".jpg"; ?>">
-							</div>
-
-              <table cellspacing="150">
-                    <tr width="180">
-                        <th>ID:</th>
-                       <?php echo "<td>".$row['id']."</td>"; ?>
-                    </tr>
-                    <tr>
-                        <th>名前:</th>
-                        <?php echo "<td>".$row['name']."</td>"; ?>
-                    </tr>
-                    <tr>
-                        <th>種類</th>
-                        <?php echo "<td>".$row['ani_kind']."</td>"; ?>
-                    </tr>
-                   <tr>
-                        <th>性別</th>
-                        <?php echo "<td>".$row['sex']."</td>"; ?>
-                    </tr>
-                    <tr>
-                        <th>年齢</th>
-                        <?php echo "<td>".$row['age']."</td>"; ?>
-                    </tr>
-                    <tr>
-                        <th>健康状態</th>
-                        <?php echo "<td>".$row['health']."</td>"; }?>
-                    </tr>
-
-                </table>
-               <ul>
-             <?php
-                 echo "<li class='ss'><a href='st.php?id=".$id. "'style=list-style:none>";
-                    echo "ストリーミング";
-                    echo "</a>";
-                    echo "<a href='update.php?id=".$id."'
-                     style=margin-left:20px; padding:10px>";
-                        echo "更新";
-                        echo "</a>";
-                   
-              ?>
-                  <a href="list.php" style="margin-left:20px; padding:10px;">一覧へ</a>
-
-
-             </ul>
-
-
-
+                echo "</table>";
+                               $id1 = $key['id'];
+                                        echo "<div style=float:right>"."<a href=confirm3.php?id=".$id1.">"."本当に削除しますか?</a></div>";
+                                
+                                //echo $_SESSION["msg"];
+                            }
+                         ?>
+                
           </div>
         </div>
-        </div>
-
-          <?php
-            }catch(Exception $e){
-                echo $e->getMessage();
+    </div>
+    <script>
+        function hyoji1(num)
+            {
+              if (num == 0)
+              {
+                 document.getElementById("disp1").style.display="none";
+              }
             }
+        
+        
+    $(function() {
+  $('input[type=file]').after('<span></span>');
 
-            //切断
-            $pdo = null;
-            ?>
+  // アップロードするファイルを選択
+  $('input[type=file]').change(function() {
+    var file = $(this).prop('files')[0];
 
+    // 画像以外は処理を停止
+    if (! file.type.match('image.*')) {
+      // クリア
+      $(this).val('');
+      $('span').html('');
+      return;
+    }
+
+    // 画像表示
+    var reader = new FileReader();
+    reader.onload = function() {
+      var img_src = $('<img>').attr('src', reader.result).width(250).css('margin-left','-230%').css('margin-top','-120%');
+      $('span').html(img_src);
+    }
+    reader.readAsDataURL(file);
+  });
+});
+        
+        
+    </script>
 
     </body>
 </html>
+
+    

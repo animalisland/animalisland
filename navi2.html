@@ -1,15 +1,14 @@
 <!-- <link rel="stylesheet" type="text/css" href="css/style2.css">
-<?php include_once './navi.html'; ?> -->
+<?php include_once './navi2.html'; ?> -->
 <!-- メニュー -->
 <nav>
 	<div class="inner">
 		<ul class="gnav">
-              <li><a href="#" onclick="asp();">いち</a></li>
+              <li><a class="active" href="#" onclick="asp();">いち</a></li>
               <li><a href="./confirm.php">とうろく</a></li>
               <li><a href="./list.php">いちらん</a></li>
-              <li><a href="./deleteForm.php">さくじょ</a></li>
-             
-              
+              <li><a href="./削除.php">さくじょ</a></li>
+              <li class="r"><a href="./island.php ">地図切替</a></li>
 
 		</ul>
 	</div><!-- /.inner -->
@@ -17,18 +16,17 @@
 <div id="spMenu"><span id="navBtn"><span id="navBtnIcon"></span></span></div>
     
         <style>
- 
-        .img1{
-            width: 147px;
-        }
-            
-             @font-face {
+    @font-face {
         font-family: 'MyWebFont';
        src: url('./font/GN-KillGothic-U-KanaNA.ttf'); 
     }
          .gnav{
              font-family: "MyWebFont" !important;
             }
+ 
+        .img1{
+            width: 147px;
+        }
 
 
     </style>

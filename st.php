@@ -1,4 +1,12 @@
 <?php $id = $_GET["id"];?>
+
+<?php
+	// データーベース
+	require_once './databaseUtil.php';
+	$databasea = new DatabaseUtil();
+	$arrayList = $databasea->st($id);
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -50,41 +58,86 @@ $(function($){
     <style>
         #main{
             width:100%;
+            position: relative;
         }
         #sub{
             width:30%;
         }
+        
         div.sample {
-                        width:250px; height:70vh;
+                        width:15.2%; height:67.3vh;
                          padding:10px; border:1px solid black;
                         background-color:lightgray;
                         float: right;
-                        margin-right: 3%;
-                        margin-top: 13px;
+                        
+                       }
+        
+         div.sample2 {
+                        width:5.1%; height:97.8vh;
+                         padding:10px; border:1px solid black;
+                        background-color:lightgray;
+                       float: right;
+                        margin-right: 93.5%;
+                        margin-top: -50.25%
+                        
                         
                        } 
             .st{
-                padding: 100px,0,0,0;
-                width: 1024px;
-                height: 600px;
-                margin-left: 16%;
-              
-                
+                padding: 10px,0,0,0;
+                margin-left: 6.60%;
+               width:1045px;
+                height:810x;
+                margin-top: -7%;
             }
+        .st2{
+                padding: 10px,0,0,0;
+                margin-left: 6.60%;
+               width:1046px;
+                height:624px;
+                margin-top: -4%;
+            }
+        #contents{
+            position: relative;
+            height: 525px;
+        }
         
         .img1{
             width: 147px
         }
+        
+        #video {
+          // 以下、画面いっぱいにするためのCSS設定
+          min-height: 100%;
+          min-height: 100vh;
+          min-width: 60%;
+          min-width: 60vw;
+          // wrapperのサイズに応じて、leftの位置をjQueryで指定するため、positionはabsoluteにします。
+          position: absolute;
+          top: 0;
+          // z-indexは調整してください。
+          z-index: 1;
+        }
+        p{
+            font-size: 19px;
+        }
+        
+         @font-face {
+        font-family: 'MyWebFont';
+       src: url('./font/GN-KillGothic-U-KanaNA.ttf'); 
+        }
+         .gnav{
+             font-family: "MyWebFont" !important;
+            }
+        
+        
     </style>
 </head>
 <body>
     
 <header>
 	<div class="inner">
-		<h1><a href="index.html"><img src="images/logo2.png" alt="サイト名" class="img1"></a></h1>
-		<p class="summary">
-		ストリーミングページ
-		</p>
+		<h1><a href="island.php"><img src="images/logo2.png" alt="サイト名" class="img1"></a></h1>
+		
 	</div><!-- /.inner -->
 </header>
 
@@ -92,7 +145,6 @@ $(function($){
 <nav>
 	<div class="inner">
 		<ul class="gnav">
-			<li><a href="island.php">ホーム</a></li>
 					<li><a href="island.php">topへ</a></li>
 					 <?php
                          echo "<li><a href='result.php?id=".$id. "'>";
@@ -108,9 +160,31 @@ $(function($){
 
 <div id="contents">
 	<div id="main">
-         
-        <video src="./st.mp4" class="st"></video>
-        <div class="sample" >でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br>でーた<br></div>
+        <?php if($id=="cat"){
+                echo "<video id='video' src=./st.mp4 class='st'>";
+                echo "</video>";
+              }else{
+                echo "<video src=./dog.mp4 class='st2'>";
+                echo "</video>";
+              }
+        ?>
+        <div class="sample" >
+            
+         <?php
+            foreach ($arrayList as $key) {
+                echo "<p>名前:".$key['name']."</p>";
+               
+                echo "<img style='width:100%' src=./".$key['url'].">";
+            }
+         ?>
+
+        <p>脈拍:<?php
+                  echo rand(100,120).'/分';
+            ?>
+            </p>
+        <p>体温:<?php echo rand(35,40).'度';?></p>
+        </div>
+         <div class="sample2" ></div>
 	
 	</div><!-- /#main -->
     <div id="sub">
@@ -120,15 +194,44 @@ $(function($){
 </div><!-- /#contents -->
 
 <footer>
-	<div class="copyright">Copyright &#169; 20XX - 20XX SITENAME All Rights Reserved.</div><!-- /.copyright -->
+	<div class="copyright" ></div><!-- /.copyright -->
 </footer>
 
 <div class="totop"><a href="#"><img src="images/totop.png" alt="ページのトップへ戻る"></a></div><!-- /.totop -->
     
     <script>
     var mediaElement = document.getElementsByTagName("video")[0];
-    mediaElement.currentTime = 6; // 2 秒の位置にシークする
+    mediaElement.currentTime = 7; // 2 秒の位置にシークする
+    mediaElement.loop = true;
     mediaElement.play();
+        
+    $(function() {
+  var getWindowMovieHeight = function() {
+    // ここでブラウザの縦横のサイズを取得します。
+    var windowSizeHeight = $(window).outerHeight();
+    var windowSizeWidth = $(window).outerWidth();
+
+    // メディアの縦横比に合わせて数値は変更して下さい。(メディアのサイズが width < heightの場合で書いています。逆の場合は演算子を逆にしてください。)
+    var windowMovieSizeWidth = windowSizeHeight * 1.76388889;
+    var windowMovieSizeHeight = windowSizeWidth / 1.76388889;
+    var windowMovieSizeWidthLeftMargin = (windowMovieSizeWidth - windowSizeWidth) / 2;
+
+    if (windowMovieSizeHeight < windowSizeHeight) {
+      // 横幅のほうが大きくなってしまう場合にだけ反応するようにしています。
+      $("#video").css({left: -windowMovieSizeWidthLeftMargin});
+    }
+  };
+
+  // 以下画面の可変にも対応できるように。
+  $(window).on('load', function(){
+    getWindowMovieHeight();
+  });
+
+  $(window).on('resize', function(){
+    getWindowMovieHeight();
+  });
+}); 
+
     
     </script>
 </body>

@@ -1,3 +1,24 @@
+<?php $id = $_GET["id"];?>
+
+<?php
+	// データーベース
+	require_once './databaseUtil.php';
+	$databasea = new DatabaseUtil();
+	$arrayList = $databasea->up($id);
+?>
+
+<?php
+  session_start();
+  if (!isset($_SESSION['msg'])){
+    echo $_SESSION['msg'];
+    $_SESSION['msg'] = null;
+  }else{
+      $SESSION['msg'] ="";
+  }
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -12,6 +33,7 @@
 <script type="text/javascript" src="js/jquery.scrollshow.js"></script>
 <script type="text/javascript" src="js/jquery.rollover.js"></script>
 <script type="text/javascript" src="js/jquery.slidewide.js"></script>
+<link rel="stylesheet" href="./css/bootstrap.min.css">
 <script>
 $(function($){
 	if ($('#spMenu').css('display') == 'block') {
@@ -172,14 +194,14 @@ $(function($){
             width: 20vh;
 /*            padding-top:6%;*/
             background: pink;
-            border-radius: 30% 0 0 30%;
+            border-radius: 50% 0 0 50%;
             height: 47px;
             font-size: 20px;
         }
          td{
             width: 20vh;
              background: aqua;
-            border-radius: 0 30% 30% 0; 
+            border-radius: 0 50% 50% 0; 
              color: black;
              font-size: 20px;
              height: 47px;
@@ -194,7 +216,7 @@ $(function($){
             z-index: 1;
             margin-left: 88%;
             font-size: 20px;
-            margin-top: 37%;
+            margin-top: 34%;
             color: white;
         }
 
@@ -224,7 +246,19 @@ $(function($){
         .ainfo{
             font-family: "MyWebFont" !important;
         }
-
+        
+        .form-control{
+            width: 115%;
+        }
+        .form-group2{
+           
+        }
+        
+         .form-control2{
+           
+        }
+        
+        
 
 
     </style>
@@ -233,7 +267,7 @@ $(function($){
 
 <header>
 	<div class="inner">
-		<h1><a href="island.php"><img src="./images/logo2.png" class="img1"></a></h1>
+		<h1><a href="index.html"><img src="./images/logo2.png" class="img1"></a></h1>
 		
 	</div><!-- /.inner -->
 </header>
@@ -256,94 +290,97 @@ $(function($){
 
     <div id="contents">
          <img src="./images/sima.png" id="main">
-        <img src="images/btn.png" style="position:absolute; margin-left:-15%; z-index:1; margin-top:33%; width:140px"><a href="./island.php"><p class="p1">もどる</p></a>
+        <img src="images/btn.png" style="position:absolute; margin-left:-15%; z-index:1; margin-top:30%; width:140px"><a href='./result.php?id=<?php echo $id;?>'><p class="p1">もどる</p></a>
 
-           <?php $id = $_GET["id"];?>
         <div class="a">
           <div class="box1">
 
-            <?php
-            //DSN(Data Source Name)
-            $dsn = "mysql:host=localhost;dbname=gp41;charset=utf8";
-            $dbuser = "root";
-            $dbpass = "";
+                <p style="font-size:45px" class="ainfo">情報更新</p>
+                <img src="./images/ga2.jpg" style="position:absolute; width:27%;right:58%;top:27%" id="disp1">
+					<div class="centerd">
+                       
+                    </div>
+                                <form method="post" enctype="multipart/form-data" action="confirm2.php" style="margin-top:5%; float:right; margin-right:10%">
+                                <input type="hidden" name="MAX_FILE_SIZE" value="1000024" />
+                                  <?php
+                            foreach ($arrayList as $key) {
+                                echo "<div class=form-group>";
+                                echo "<input type='text' class='form-control' name='id' id='id' value=".$key['id'].">";
+                                echo "</div>";
+                                 echo "<div class=form-group>";
+                                echo "<input type='text' class='form-control' name='name' value=".$key['name'].">";
+                                echo "</div>";
+                                 echo "<div class=form-group>";
+                                echo "<input type='text' class='form-control' name='ani_kind' value=".$key['ani_kind'].">";
+                                echo "</div>";
+                                 echo "<div class=form-group>";
+                                echo "<input type='text' class='form-control' name='sex' value=".$key['sex'].">";
+                                echo "</div>";
+                                 echo "<div class=form-group>";
+                                echo "<input type='text' class='form-control' name='age' value=".$key['age'].">";
+                                echo "</div>";
+                                echo "<div class=form-group>";
+                                echo "<input type='text' class='form-control' name='health' value=".$key['health'].">";
+                                echo "</div>";
+                                
+                            
+                         ?>
 
+                          
 
-            try{
-                $pdo = new PDO($dsn, $dbuser, $dbpass);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
-                //DefaultはERRMODE_SILENT
-                $sql = "select * from ani_data where id = ?";
-                $preStmt = $pdo->prepare($sql);
-                $preStmt->bindValue(1,$id);
-                $preStmt->execute();
-                foreach($preStmt as $row){
-            ?>
-
-              <p style="font-size:45px" class="ainfo">動物情報</p>
-							<div class="centered">
-								<img src="<?php echo "./images/".$id.".jpg"; ?>">
-							</div>
-
-              <table cellspacing="150">
-                    <tr width="180">
-                        <th>ID:</th>
-                       <?php echo "<td>".$row['id']."</td>"; ?>
-                    </tr>
-                    <tr>
-                        <th>名前:</th>
-                        <?php echo "<td>".$row['name']."</td>"; ?>
-                    </tr>
-                    <tr>
-                        <th>種類</th>
-                        <?php echo "<td>".$row['ani_kind']."</td>"; ?>
-                    </tr>
-                   <tr>
-                        <th>性別</th>
-                        <?php echo "<td>".$row['sex']."</td>"; ?>
-                    </tr>
-                    <tr>
-                        <th>年齢</th>
-                        <?php echo "<td>".$row['age']."</td>"; ?>
-                    </tr>
-                    <tr>
-                        <th>健康状態</th>
-                        <?php echo "<td>".$row['health']."</td>"; }?>
-                    </tr>
-
-                </table>
-               <ul>
-             <?php
-                 echo "<li class='ss'><a href='st.php?id=".$id. "'style=list-style:none>";
-                    echo "ストリーミング";
-                    echo "</a>";
-                    echo "<a href='update.php?id=".$id."'
-                     style=margin-left:20px; padding:10px>";
-                        echo "更新";
-                        echo "</a>";
-                   
-              ?>
-                  <a href="list.php" style="margin-left:20px; padding:10px;">一覧へ</a>
-
-
-             </ul>
-
-
-
+                             <div class="form-group2">
+                                <input type="file" class="form-control2" name="up" onclick="hyoji1(0)" placeholder="画像選択" required />
+                                <button type="submit" class="btn btn-default" name="signup" style="float:right;margin-top:-11%;margin-right:-19%; value=<?php echo $key["url"];}?>">更新</button>
+                                
+                              </div>
+                              
+                              
+                            </form>
+              
+               
+                
           </div>
         </div>
-        </div>
-
-          <?php
-            }catch(Exception $e){
-                echo $e->getMessage();
+    </div>
+    <script>
+        function hyoji1(num)
+            {
+              if (num == 0)
+              {
+                 document.getElementById("disp1").style.display="none";
+              }
             }
+        
+        
+    $(function() {
+  $('input[type=file]').after('<span></span>');
 
-            //切断
-            $pdo = null;
-            ?>
+  // アップロードするファイルを選択
+  $('input[type=file]').change(function() {
+    var file = $(this).prop('files')[0];
 
+    // 画像以外は処理を停止
+    if (! file.type.match('image.*')) {
+      // クリア
+      $(this).val('');
+      $('span').html('');
+      return;
+    }
+
+    // 画像表示
+    var reader = new FileReader();
+    reader.onload = function() {
+      var img_src = $('<img>').attr('src', reader.result).width(250).css('margin-left','-230%').css('margin-top','-120%');
+      $('span').html(img_src);
+    }
+    reader.readAsDataURL(file);
+  });
+});
+        
+        
+    </script>
 
     </body>
 </html>
+
+    

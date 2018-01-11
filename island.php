@@ -80,7 +80,7 @@ $(function($){
 
 
     li a:hover:not(.active) {
-        background-color: #111;
+       
     }
 
     
@@ -106,7 +106,7 @@ $(function($){
             border-radius: 20% 20% 0 0;
             height: 20.5%;
             width: 100%;
-            margin-top:38%;
+            margin-top:45.5%;
             margin-left:-13.5%;
           
         }
@@ -145,8 +145,9 @@ $(function($){
 		<main role="main">
             <div class="map">
                 <div id="contents">
-                    <img src="./images/sima2.png" id="main">
-                    <h1 >しまぜんたいず</h1>
+                    <img src="./images/sima.png" id="main">
+                    <img src="images/build.png" style="position:absolute; margin-left:-101%; z-index:1; margin-top:15%; width:100px;">
+                    <h1 style="width:300px; left:-70%;">しまぜんたいず</h1>
 
                     <?php
                         foreach ($arrayList as $key) {
@@ -177,15 +178,16 @@ $(function($){
                     ?>
                   <!--追加 -->
                     <div id="box1">
-                        <p>現在の位置情報</p>
+                        <p>拠点からの位置</p>
                     <?php
                         foreach ($arrayList as $key) {
                             echo "<div style='float:left;padding-left:1%;padding-right:5%'>";
                             echo "<img src=".$key['url']." style=width:50px;height:6vh;padding-right:5%;padding-left:10%;>";
                             echo "<p id='aaa' style='margin-left:15%;'>";
                             echo "</p>";
-                            echo "<p id='bbb' style='margin-top:-72%;margin-left:200%'>";
+                            echo "<p id='bbb' style='margin-top:-72%;margin-left:198%'>";
                             echo "</p>";
+                           
                             echo "</div>";
                         };
                     ?>
@@ -221,9 +223,9 @@ $(function($){
 
       function movement(type) {
          console.log(size);
-        var point = 20;
+        var point = 2;
         var probability = 3;
-        var speed = 500;
+        var speed = 4000;
 
         var left = 0;
 

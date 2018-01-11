@@ -129,5 +129,93 @@ class DatabaseUtil {
       echo $e->getMessage();
     }
   }
+    
+//ストリーミング
+function st($id) {
 
+    $arrayList = array();
+    try{
+      // 接続
+      $pdo = new PDO($this->dsn, $this->dbuser, $this->dbpass);
+      $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+
+      $sql = "select * from ani_data where id=?";
+      $preStmt = $pdo->prepare($sql);
+      $preStmt->bindValue(1,$id);
+      $preStmt->execute();
+      $arrayList = $preStmt->fetchAll();
+    }catch(Exception $e){
+    	echo $e->getMessage();
+    }
+
+    foreach($preStmt as $row){
+    	$array = array('id'=>$row["id"], 'name'=>$row["name"], 'url'=>"./".$row["url"]);
+    	$arrayList = array_merge($arrayList, $array);
+    }
+    return $arrayList;
+  }
+    
+    
+    function dels($id) {
+
+    $arrayList = array();
+    try{
+      // 接続
+      $pdo = new PDO($this->dsn, $this->dbuser, $this->dbpass);
+      $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+
+      $sql = "select * from ani_data where id=?";
+      $preStmt = $pdo->prepare($sql);
+      $preStmt->bindValue(1,$id);
+      $preStmt->execute();
+      $arrayList = $preStmt->fetchAll();
+    }catch(Exception $e){
+    	echo $e->getMessage();
+    }
+
+    foreach($preStmt as $row){
+    	$array = array('id'=>$row["id"], 'name'=>$row["name"],
+                                        'ani_kind'=>$row["ani_kind"],
+                                        'sex'=>$row["sex"],
+                                        'age'=>$row["age"],
+                                        'health'=>$row["health"],          
+                                        'url'=>"./".$row["url"]);
+    	$arrayList = array_merge($arrayList, $array);
+    }
+    return $arrayList;
+  }
+    
+    function up($id) {
+              $arrayList = array();
+                                    try {
+                                      // 接続
+                                      $pdo = new PDO($this->dsn, $this->dbuser, $this->dbpass);
+                                      $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+                                      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+
+                                      $sql = "SELECT * FROM ani_data where id =?";
+
+                                       $preStmt = $pdo->prepare($sql);
+                                       $preStmt->bindValue(1,$id);
+                                       $preStmt->execute();
+                                       $arrayList = $preStmt->fetchAll();
+                                        }catch(Exception $e){
+                                            echo $e->getMessage();
+                                        }
+
+                                      foreach($preStmt as $row){
+                                        $array = array('id'=>$row["id"], 'name'=>$row["name"],
+                                        'ani_kind'=>$row["ani_kind"],
+                                        'sex'=>$row["sex"],
+                                        'age'=>$row["age"],
+                                        'health'=>$row["health"],          
+                                        'url'=>"./".$row["url"]);
+                                        $arrayList = array_merge($arrayList, $array);
+                                    }
+                                    return $arrayList;
+    
+    }
+    
 }
